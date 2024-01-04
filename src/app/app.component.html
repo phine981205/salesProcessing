@@ -1,0 +1,65 @@
+<div class="card h-100 mx-3 my-3">
+  <div class="card-header">
+    Sales Processing
+  </div>
+  <div class="card-body">
+    <div class="row form-group align-items-end">
+      <div class="col-md-6">
+        <h5>Choose Month</h5> 
+        <p-calendar [(ngModel)]="dateMonth" [showIcon]="true" dateFormat="yy/mm" view="month" [yearNavigator]="true" yearRange="2000:2030" [readonlyInput]="true" inputId="monthpicker" (onSelect)="changeMonth($event)"></p-calendar>
+      </div>
+      <div class="col-md-3">
+        <button class="btn btn-light">{{currentYear}}/{{currentMonth}} </button>
+        
+        <button type="button" class="mt-auto btn btn-primary align-item-centre" (click)="processData()">
+              PROCESS
+        </button>
+      </div>
+    </div>
+    <div class="row my-3 mx-2" *ngIf="generateData">
+      <h4>Result</h4>
+      <table class="table table-bordered" >
+        <thead>
+          <tr>
+            <th></th>
+            <th>{{currentYear}}/{{currentMonth}}</th>
+            <th></th>
+            <th>{{yr2}}/{{mth2}}</th>
+            <th></th>
+            <th>{{yr3}}/{{mth3}}</th>
+            <th></th>
+          </tr>
+            <tr>
+              <th>Salesman ID</th>
+              <th>1st Mth Sales GP</th>
+              <th>1st Mth Collection GP</th>
+              <th>2nd Mth Sales GP</th>
+              <th>2nd Mth Collection GP</th>
+              <th>3rd Mth Sales GP</th>
+              <th>3rd Mth Collection GP</th>
+            </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let re of processedData.array1">
+            <tr>
+              <td>{{re.userID}}</td>
+              <ng-container *ngFor="let r of re.obj;">
+                <td>{{r.salesGP | number : '1.2-2'}}</td>
+                <td>{{r.collectionGP | number : '1.2-2'}}</td>
+              </ng-container>
+            </tr>
+          </ng-container>
+          <tr>
+            <td>Total: </td>
+            <td>{{processedData.array2.salesGP1 | number : '1.2-2'}}</td>
+            <td>{{processedData.array2.collectionGP1 | number : '1.2-2'}}</td>
+            <td>{{processedData.array2.salesGP2 | number : '1.2-2'}}</td>
+            <td>{{processedData.array2.collectionGP2 | number : '1.2-2'}}</td>
+            <td>{{processedData.array2.salesGP3 | number : '1.2-2'}}</td>
+            <td>{{processedData.array2.collectionGP3 | number : '1.2-2'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
